@@ -16,8 +16,7 @@ int main(){
 
     printf("Conversione da network a host: \n");
     int num2[] = {19875, 5499, 59821, 43120, 26489};
-    for (int j = 0; j < num2[j]; j++)
-    {
+    for (int j = 0; j < num2[j]; j++){
         int host2 = htons(num2[j]);
         printf("%x\n", host2);
     }
