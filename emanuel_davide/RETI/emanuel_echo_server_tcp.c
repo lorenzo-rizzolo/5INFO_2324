@@ -1,73 +1,127 @@
-
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
+#include <sys/socket.h>
 #include <arpa/inet.h>
+#include <string.h>
 
-int main() {
-    // Dichiarazione delle variabili
-    int server_socket, client_socket;
-    struct sockaddr_in server_address, client_address;
-    socklen_t client_address_len = sizeof(client_address);
+/* 
+man 7 ip
+man 7 tcp
+ */
 
-    // Creazione del socket del server
-    server_socket = socket(AF_INET, SOCK_STREAM, 0);
-    if (server_socket == -1) {
-        perror("Errore nella creazione del socket");
-        exit(EXIT_FAILURE);
+#define BUFSIZE 1024
+#define MAX_CONN 10
+
+/* man perror */
+void error(char *msg) 
+{
+  perror(msg);
+  exit(1);
+}
+
+int socket_create() 
+{
+    int socket_fd;
+
+    if((socket_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0){
+        error("Errore nella creazione del socket");
+        exit(1);
     }
+    return socket_fd;
+}
 
-    // Configurazione dell'indirizzo del server
-    server_address.sin_family = AF_INET;
-    server_address.sin_port = htons(12345); // Scegliere una porta libera
-    server_address.sin_addr.s_addr = INADDR_ANY;
+void socket_bind(int socket_fd, unsigned short tcp_port) 
+{
+    struct sockaddr_in serveraddr; /* server address */
+  
+    /* inizializza la struttura che contiene le informazioni del socket */
+    memset(&serveraddr, '0', sizeof(serveraddr));
+    serveraddr.sin_family = AF_INET; /* socket IP */
+    serveraddr.sin_addr.s_addr = htonl(INADDR_ANY); /* 0.0.0.0 */
+    serveraddr.sin_port = htons(tcp_port); /* porta tcp in network order*/
 
-    // Collegamento del socket del server all'indirizzo e alla porta
-    if (bind(server_socket, (struct sockaddr*)&server_address, sizeof(server_address)) == -1) {
-        perror("Errore nel binding dell'indirizzo");
-        exit(EXIT_FAILURE);
+    /* bind del socket con indirizzo e porta */
+    if(bind(socket_fd, (struct sockaddr *) &serveraddr, sizeof(serveraddr)) < 0) 
+        error("Errore nella fase di binding");
+}
+
+void socket_listen(int socket_fd) 
+{
+    if(listen(socket_fd, MAX_CONN) < 0) /* in ascolto sul socket max 10 connessioni*/ 
+        error("Errore nella fase di listen");
+}
+
+int socket_accept(int socket_fd) 
+{
+    int connection_fd;
+    struct sockaddr_in clientaddr; /* client address */
+    socklen_t clientlen = sizeof(clientaddr);
+    
+    /* accetta una connessione TCP da un client */
+    if((connection_fd = accept(socket_fd, 
+                            (struct sockaddr *) &clientaddr, 
+                            &clientlen)) < 0)
+        error("Errore nella fase di accept");
+    return connection_fd;
+}
+
+int socket_receive(int socket_fd, char *buf)
+{
+    int msg_size;
+
+    bzero(buf, BUFSIZE);
+    if((msg_size = read(socket_fd, buf, BUFSIZE)) < 0)
+        error("Errore nella ricezione dati");
+    
+    return msg_size;
+}
+
+int socket_send(int socket_fd, char *buf) 
+{
+    int byte_sent;
+
+    if((byte_sent = write(socket_fd, buf, strlen(buf))) < 0)
+        error("Errore nell'invio dati");
+    
+    return byte_sent;
+}
+
+int main(int argc, char **argv) 
+{
+    unsigned short tcp_port; /* TCP port in ascolto */
+    int socket_fd;           /* welcoming socket file descriptor */
+    int connection_fd;       /* connection socket file descriptor */
+    char buf[BUFSIZE];       /* RX buffer */
+    int msg_size;            /* dimensione messaggio ricevuto */
+
+    /* Verifico la presenza del parametro porta e lo leggo*/ 
+    if(argc != 2) {
+        printf("uso: %s <porta>\n", argv[0]);
+        exit(1);
     }
+    tcp_port = (unsigned short)atoi(argv[1]);
 
-    // Inizio dell'ascolto delle connessioni in arrivo
-    if (listen(server_socket, 5) == -1) {
-        perror("Errore nell'ascolto delle connessioni");
-        exit(EXIT_FAILURE);
+    /* Creo il socket */ 
+    socket_fd = socket_create();
+
+    /* bind del socket a IP e porta */
+    socket_bind(socket_fd, tcp_port);
+
+    /* metto il socket in ascolto */
+    socket_listen(socket_fd); 
+    
+    /* ciclo principale del server */
+    printf("Server TCP pronto e in ascolto sulla porta %d\n\n", tcp_port);
+    for(;;) {
+        /* rimango in attesa fino a quando arriva una richiesta da un client */
+        connection_fd = socket_accept(socket_fd);
+
+        msg_size = socket_receive(connection_fd, buf);
+        msg_size = socket_send(connection_fd, buf);
+        printf("TCP server ha ricevuto %d byte: %s\n", msg_size, buf);
+        
+        /* chiudo la connessione con il client */
+        close(connection_fd);
     }
-
-    printf("Server in ascolto sulla porta 12345...\n");
-
-    while (1) {
-        // Accettazione di una connessione in arrivo
-        client_socket = accept(server_socket, (struct sockaddr*)&client_address, &client_address_len);
-        if (client_socket == -1) {
-            perror("Errore nell'accettare la connessione");
-            exit(EXIT_FAILURE);
-        }
-
-        printf("Connessione accettata da %s:%d\n", inet_ntoa(client_address.sin_addr), ntohs(client_address.sin_port));
-
-        // Invio di un messaggio di benvenuto al client
-        char welcome_message[] = "Benvenuto al server TCP!";
-        send(client_socket, welcome_message, sizeof(welcome_message), 0);
-
-        // Ricezione e visualizzazione dei dati inviati dal client
-        char buffer[1024];
-        int bytes_received = recv(client_socket, buffer, sizeof(buffer), 0);
-        if (bytes_received == -1) {
-            perror("Errore nella ricezione dei dati");
-            exit(EXIT_FAILURE);
-        }
-
-        buffer[bytes_received] = '\0';
-        printf("Dati ricevuti dal client: %s\n", buffer);
-
-        // Chiusura della connessione con il client
-        close(client_socket);
-    }
-
-    // Chiusura del socket del server
-    close(server_socket);
-
-    return 0;
 }
