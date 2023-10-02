@@ -64,12 +64,30 @@ int socket_receive(int socket_fd, char *buf)
     return msg_size;
 }
 
+int socket_send(int socket_fd, char *ip, unsigned short port, char *buf) 
+{
+    struct sockaddr_in serveraddr; /* indirizzo e porta server */  
+    int byte_sent;
+
+     /* prepara le informazioni sulla destinazioen del datagram */
+    serveraddr.sin_family = AF_INET;
+    serveraddr.sin_port = htons(port);
+    serveraddr.sin_addr.s_addr = inet_addr(ip);
+
+   if((byte_sent = sendto(socket_fd, buf, strlen(buf), 0,
+         (struct sockaddr*)&serveraddr, sizeof(serveraddr))) < 0)
+         error("Errore nell'invio dati");
+    
+    return byte_sent;
+}
+
 int main(int argc, char **argv) 
 {
     unsigned short udp_port; /* UDP port in ascolto */
     int socket_fd;           /* welcoming socket file descriptor */
     char buf[BUFSIZE];       /* RX buffer */
     int msg_size;            /* dimensione messaggio ricevuto */
+    char *ip;                /* indirizzo ip di destinazione */
 
     /* Verifico la presenza del parametro porta e lo leggo*/ 
     if(argc != 2) {
@@ -88,6 +106,7 @@ int main(int argc, char **argv)
     printf("Server UDP pronto e in ascolto sulla porta %d\n\n", udp_port);
     for(;;) {
         msg_size = socket_receive(socket_fd, buf);
+        //msg_size = socket_send(socket_fd, ip, udp_port, argv[3]); 
         printf("UDP server ha ricevuto %d byte: %s\n", msg_size, buf);
     }
 }
