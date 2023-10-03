@@ -104,11 +104,12 @@ int main(int argc, char **argv)
     printf("Server UDP pronto e in ascolto sulla porta %d\n\n", udp_port);
     for(;;) {
         msg_size = socket_receive(socket_fd, buf);
-        printf("UDP server ha ricevuto %d byte: %s\n", msg_size, buf);
 
         //
         msg_size = socket_send(socket_fd, buf);
-        printf("UDP server ha inviato %d byte: %s\n", msg_size, buf);
+        
+        printf("UDP server ha ricevuto %d byte: %s\n", msg_size, buf);
+
 
     }
 }
