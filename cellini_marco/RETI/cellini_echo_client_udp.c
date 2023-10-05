@@ -57,6 +57,8 @@ int wait_receive(int socket_fd, char *buf) {
     socklen_t client_struct_len;
 
     bzero(buf, BUFSIZE);
+
+    client_struct_len = sizeof(clientaddr);
     if ((byte_receive = recvfrom(socket_fd, buf, BUFSIZE, MSG_WAITALL,
          (struct sockaddr*)&clientaddr, &client_struct_len)) < 0)
         error("Errore nella ricezione dati");
