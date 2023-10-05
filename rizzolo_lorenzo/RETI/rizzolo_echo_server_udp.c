@@ -10,16 +10,13 @@ man 7 ip
 man 7 udp
  */
 
-typedef struct udp_response
-{
-    int msg_size;
-    struct sockaddr_in clientaddr; /* client address */
-    socklen_t client_struct_len; /* lunghezza dell'indirizzo del client */
-    char *buf;
-    int buf_size;
-} udp_response;
-
 #define BUFSIZE 1024
+
+typedef struct received_info{
+    int port;
+    char *ip;
+    int size;
+} received_info;
 
 /* man perror */
 void error(char *msg) 
@@ -56,28 +53,44 @@ void socket_bind(int socket_fd, unsigned short udp_port)
         error("Errore nella fase di binding");
 }
 
-struct sockaddr_in socket_receive(int socket_fd, char *buf)
+received_info socket_receive(int socket_fd, char *buf)
 {
     int msg_size;
-    struct sockaddr_in clientaddr; /* client address */
+    struct sockaddr_in client_info; /* client address */
     socklen_t client_struct_len; /* lunghezza dell'indirizzo del client */
 
+    received_info upd_info;
+  
     /* inizializza la struttura che contiene le informazioni del socket */
-    memset(&clientaddr, '0', sizeof(clientaddr));
+    memset(&client_info, '0', sizeof(client_info));
 
     bzero(buf, BUFSIZE);
     if ((msg_size = recvfrom(socket_fd, buf, BUFSIZE, 0,
-         (struct sockaddr*)&clientaddr, &client_struct_len)) < 0)
+         (struct sockaddr*)&client_info, &client_struct_len)) < 0)
         error("Errore nella ricezione dati");
     
-    return clientaddr;
+    // int port = clientaddr.sin_port;  
+    // printf("client: %s:%d\n", inet_ntoa(clientaddr.sin_addr), port);
+    
+    upd_info.ip = inet_ntoa(client_info.sin_addr);
+    upd_info.port = htons(client_info.sin_port);
+    upd_info.size = msg_size;
+
+    return upd_info;
 }
 
-int socket_send(int socket_fd, struct sockaddr_in client, char *buf) {
+int socket_send(int socket_fd, char *ip, unsigned short port, char *buf) 
+{
+    struct sockaddr_in serveraddr; /* indirizzo e porta server */  
     int byte_sent;
 
+     /* prepara le informazioni sulla destinazioen del datagram */
+    serveraddr.sin_family = AF_INET;
+    serveraddr.sin_port = htons(port);
+    serveraddr.sin_addr.s_addr = inet_addr(ip);
+
    if((byte_sent = sendto(socket_fd, buf, strlen(buf), 0,
-         (struct sockaddr*)&client, sizeof(client))) < 0)
+         (struct sockaddr*)&serveraddr, sizeof(serveraddr))) < 0)
          error("Errore nell'invio dati");
     
     return byte_sent;
@@ -88,6 +101,8 @@ int main(int argc, char **argv)
     unsigned short udp_port; /* UDP port in ascolto */
     int socket_fd;           /* welcoming socket file descriptor */
     char buf[BUFSIZE];       /* RX buffer */
+    int msg_size, byte;            /* dimensione messaggio ricevuto */
+    received_info upd_info;
 
     /* Verifico la presenza del parametro porta e lo leggo*/ 
     if(argc != 2) {
@@ -105,10 +120,10 @@ int main(int argc, char **argv)
     /* ciclo principale del server */
     printf("Server UDP pronto e in ascolto sulla porta %d\n\n", udp_port);
     for(;;) {
-        struct sockaddr_in client_response = socket_receive(socket_fd, buf);
-        printf("UDP server ha ricevuto %ld byte: %s\n", strlen(buf), buf);
-        
-        // int msg_size = socket_send(socket_fd, client_response, buf);
-        // printf("UDP server ha inviato %i byte: %s\n", msg_size, buf);
+        upd_info = socket_receive(socket_fd, buf);
+        printf("UDP server ha ricevuto %d byte: %s dalla porta %s[%d]\n", upd_info.size, buf, upd_info.ip, upd_info.port);
+
+        byte = socket_send(socket_fd, upd_info.ip, upd_info.port, buf);
+        printf("UDP server ha inviato %d -  %s\n", byte, buf);
     }
 }
