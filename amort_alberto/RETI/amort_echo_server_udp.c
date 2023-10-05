@@ -47,18 +47,22 @@ void socket_bind(int socket_fd, unsigned short udp_port)
         error("Errore nella fase di binding");
 }
 
-int socket_accept (int socket_fd)
+int socket_receive(int socket_fd, char *buf)
 {
-    int connection_fd;
+    int msg_size;
     struct sockaddr_in clientaddr; /* client address */
-    socklen_t clientlen = sizeof(clientaddr);
+    socklen_t client_struct_len; /* lunghezza dell'indirizzo del client */
+  
+    /* inizializza la struttura che contiene le informazioni del socket */
+    memset(&clientaddr, '0', sizeof(clientaddr));
 
-        /* accetta una connessione TCP da un client */
-    if((connection_fd = accept(socket_fd, 
-                            (struct sockaddr *) &clientaddr, 
-                            &clientlen)) < 0)
-        error("Errore nella fase di accept");
-    return connection_fd;
+    bzero(buf, BUFSIZE);
+    client_struct_len = sizeof(clientaddr);
+    if ((msg_size = recvfrom(socket_fd, buf, BUFSIZE, 0,
+         (struct sockaddr*)&clientaddr, &client_struct_len)) < 0)
+        error("Errore nella ricezione dati");
+    
+    return msg_size;
 }
 
 int socket_send (int socket_fd, char *buf)
@@ -72,33 +76,13 @@ int socket_send (int socket_fd, char *buf)
 }
 
 
-
-int socket_receive(int socket_fd, char *buf)
-{
-    int msg_size;
-    struct sockaddr_in clientaddr; /* client address */
-    socklen_t client_struct_len; /* lunghezza dell'indirizzo del client */
-  
-    /* inizializza la struttura che contiene le informazioni del socket */
-    memset(&clientaddr, '0', sizeof(clientaddr));
-
-    bzero(buf, BUFSIZE);
-    if ((msg_size = recvfrom(socket_fd, buf, BUFSIZE, 0,
-         (struct sockaddr*)&clientaddr, &client_struct_len)) < 0)
-        error("Errore nella ricezione dati");
-    
-    return msg_size;
-}
-
 int main(int argc, char **argv) 
 {
     unsigned short udp_port; /* UDP port in ascolto */
     int socket_fd;           /* welcoming socket file descriptor */
     char buf[BUFSIZE];       /* RX buffer */
     int msg_size;            /* dimensione messaggio ricevuto */
-    int connection_fd;       /* connection socket file descriptor */
-    int byte_sent;           /*per rimandare il messaggio*/
-
+        int byte_sent;           /*per rimandare il messaggio*/
 
     /* Verifico la presenza del parametro porta e lo leggo*/ 
     if(argc != 2) {
@@ -116,19 +100,10 @@ int main(int argc, char **argv)
     /* ciclo principale del server */
     printf("Server UDP pronto e in ascolto sulla porta %d\n\n", udp_port);
     for(;;) {
-        connection_fd = socket_accept(socket_fd);
-        msg_size = socket_receive(connection_fd, buf);
+        msg_size = socket_receive(socket_fd, buf);
         printf("UDP server ha ricevuto %d byte: %s\n", msg_size, buf);
         printf("Rimandiamo indietro il messaggio");
-        byte_sent = socket_send(connection_fd, buf);
-
-        if(socket_send(connection_fd, buf)==0)
-        {
-            printf("Nessun dato inviato");
-        }
-
-        /* chiudo la connessione con il client */
-        close(connection_fd);
+        byte_sent = socket_send(socket_fd, buf);
 
     }
 }
