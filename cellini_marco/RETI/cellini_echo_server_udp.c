@@ -60,6 +60,8 @@ int socket_receive(int socket_fd, char *buf)
     memset(&clientaddr, '0', sizeof(clientaddr));
 
     bzero(buf, BUFSIZE);
+
+    client_struct_len = sizeof(clientaddr);
     if ((msg_size = recvfrom(socket_fd, buf, BUFSIZE, MSG_WAITALL, (struct sockaddr*)&clientaddr, &client_struct_len)) < 0)
         error("Errore nella ricezione dati");
     
