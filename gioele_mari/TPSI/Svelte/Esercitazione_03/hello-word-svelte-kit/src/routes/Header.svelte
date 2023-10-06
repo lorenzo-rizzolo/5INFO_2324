@@ -98,13 +98,12 @@
 	}
 
 	li[aria-current='page']::before {
-		--size: 10px;
+		--size: 6px;
 		content: '';
 		width: 0;
 		height: 0;
 		position: absolute;
-		top: 25px;
-		transform: rotate(180deg);
+		top: 0;
 		left: calc(50% - var(--size));
 		border: var(--size) solid transparent;
 		border-top: var(--size) solid var(--color-theme-1);
