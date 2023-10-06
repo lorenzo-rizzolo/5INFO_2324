@@ -6,12 +6,12 @@
 #include <string.h>
 #include <unistd.h>
 
-#define BUFSIZE 1024
-
 /* 
-    man 7 ip
-    man 7 udp
-*/
+man 7 ip
+man 7 udp
+ */
+
+#define BUFSIZE 1024
 
 /* man perror */
 void error(char *msg) 
@@ -49,12 +49,12 @@ int socket_send(int socket_fd, char *ip, unsigned short port, char *buf)
     return byte_sent;
 }
 
-struct sockaddr_in socket_receive(int socket_fd, char *buf)
+int socket_receive(int socket_fd, char *buf)
 {
     int msg_size;
     struct sockaddr_in clientaddr; /* client address */
     socklen_t client_struct_len; /* lunghezza dell'indirizzo del client */
-
+  
     /* inizializza la struttura che contiene le informazioni del socket */
     memset(&clientaddr, '0', sizeof(clientaddr));
 
@@ -62,8 +62,8 @@ struct sockaddr_in socket_receive(int socket_fd, char *buf)
     if ((msg_size = recvfrom(socket_fd, buf, BUFSIZE, 0,
          (struct sockaddr*)&clientaddr, &client_struct_len)) < 0)
         error("Errore nella ricezione dati");
-    
-    return clientaddr;
+
+    return msg_size;
 }
 
 int main(int argc, char **argv) 
@@ -72,6 +72,7 @@ int main(int argc, char **argv)
     char *ip;                /* indirizzo ip di destinazione */
     int socket_fd;           /* connection socket */  
     int byte_sent;           /* numero byte inviati */
+    int byte_received;
     char buf[BUFSIZE];
 
     /* Verifico la presenza dei parametre IP e porta */ 
@@ -89,11 +90,10 @@ int main(int argc, char **argv)
 
     /* invio sul socket la stringa */
     byte_sent = socket_send(socket_fd, ip, udp_port, argv[3]); 
-
     printf("Inviato %d bytes con successo a %s\n", byte_sent, ip);
 
-    socket_receive(socket_fd, buf);
+    byte_received = socket_receive(socket_fd, buf);    
+    printf("Ricevuto: %s\n", buf);
 
-    printf("Il server ha ricevuto %li bytes:%s \n", strlen(buf), buf);
     close(socket_fd);
 }
