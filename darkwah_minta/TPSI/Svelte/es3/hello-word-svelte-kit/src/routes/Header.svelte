@@ -103,7 +103,8 @@
 		width: 0;
 		height: 0;
 		position: absolute;
-		top: 0;
+		top: 105%;
+		transform: rotateY(30rem);
 		left: calc(50% - var(--size));
 		border: var(--size) solid transparent;
 		border-top: var(--size) solid var(--color-theme-1);
