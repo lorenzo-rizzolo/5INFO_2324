@@ -4,13 +4,14 @@
 </svelte:head>
 
 <div class="text-column">
-	<h1>About Me!!!</h1>
+	<h1>About this app</h1>
 
 	<p>
-		Ciao io sono <a href="/sverdle">Antonio Mancuso</a>  e insegno Informatica ai ragazzi dell'Agnelli <br> Il mio blog si trova qui
+		This is a <a href="https://kit.svelte.dev">SvelteKit</a> app. You can make your own by typing the
+		following into your command line and following the prompts:
 	</p>
 
-	<pre>https://profmancusoa.github.io/</pre>
+	<pre>npm create svelte@latest</pre>
 
 	<p>
 		The page you're looking at is purely static HTML, with no client-side interactivity needed.
