@@ -1,7 +1,7 @@
 import java.net.*;
 import java.io.*;
 
-public class rizzolo_tcp_server {
+public class mari_tcp_server {
     public static void main(String[] args) {
         ServerSocket server_socket;
         Socket client_connection;
