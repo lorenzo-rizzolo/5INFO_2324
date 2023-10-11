@@ -28,6 +28,7 @@ public class emanuel_server_tcp {
                 String messaggio = reader.readLine();
 
                 System.out.format("Java TCP server ha ricevuto %d byte: %s\n", messaggio.length(), messaggio);
+                System.out.format("Inviato %d bytes con successo\n",messaggio);
 
                 /* chiudo la connessione con il client */
                 client_connection.close();
