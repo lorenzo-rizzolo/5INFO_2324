@@ -106,7 +106,7 @@ int main(int argc, char **argv)
         connection_fd = socket_accept(socket_fd);
 
         msg_size = socket_receive(connection_fd, buf); 
-        msg_size = socket_send(connection_fd, buf);
+        msg_size = socket_send(connection_fd, strcat(buf, "\n"));
         printf("TCP server ha ricevuto %d byte: %s\n", msg_size, buf);
 
         close(connection_fd);
