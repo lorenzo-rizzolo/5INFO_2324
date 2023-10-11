@@ -118,7 +118,8 @@ int main(int argc, char **argv)
     printf("Socket connesso con il server %s sulla porta %d\n", ip, tcp_port);
 
     // invia dati
-    byte_sent = socket_send(socket_fd, argv[3]); 
+    byte_sent = socket_send(socket_fd, strcat(argv[3], "\n"));
+    // per comunicare con il server java ho messo argv in un strcat 
     printf("Messaggio inviato  successo: %s\n", argv[3]);
 
     // riceve la connessione
