@@ -1,5 +1,5 @@
 {
-	"name": "hello-word-svelte-kit",
+	"name": "esercitazione-01",
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "vite dev",
