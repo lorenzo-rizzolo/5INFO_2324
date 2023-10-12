@@ -1,3 +1,7 @@
+<script>
+	import Banner from '../../lib/components/banner.svelte';
+</script>
+
 <svelte:head>
 	<title>About</title>
 	<meta name="description" content="About this app" />
@@ -5,6 +9,7 @@
 
 <div class="text-column">
 	<h1>About Me!</h1>
+	<Banner/>
 
 	<p>
 		Ciao sono <a href="https://licciardino-matteo.github.io/portfolio-Matteo-Licciardino/Index.html">Matteo Licciardino</a> sono uno studente dell'agnelli,<br>
