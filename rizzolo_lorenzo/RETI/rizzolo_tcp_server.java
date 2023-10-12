@@ -34,7 +34,6 @@ public class rizzolo_tcp_server {
                     }
                 }while(input.available() > 0);
 
-
                 System.out.format("Java TCP server ha ricevuto %d byte: %s\n", messaggio.length(), messaggio);
 
                 OutputStream output = client_connection.getOutputStream();
