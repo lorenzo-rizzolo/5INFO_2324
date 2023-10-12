@@ -1,3 +1,7 @@
+<script>
+	import Banner from '../../components/Banner.svelte';
+</script>
+
 <svelte:head>
 	<title>About</title>
 	<meta name="description" content="About this app" />
@@ -7,11 +11,11 @@
 	<h1>About this app</h1>
 
 	<p>
-		This is a <a href="https://kit.svelte.dev">SvelteKit</a> app. You can make your own by typing the
-		following into your command line and following the prompts:
+		Ciao io sono <a href="https://cv.loriz.it">Lorenzo Rizzolo</a> e studio informatica all'Agnelli <br>
+		Il mio Cv si trova qui
 	</p>
 
-	<pre>npm create svelte@latest</pre>
+	<pre>https://cv.loriz.it</pre>
 
 	<p>
 		The page you're looking at is purely static HTML, with no client-side interactivity needed.
@@ -23,4 +27,6 @@
 		The <a href="/sverdle">Sverdle</a> page illustrates SvelteKit's data loading and form handling. Try
 		using it with JavaScript disabled!
 	</p>
+
+	<Banner/>
 </div>
