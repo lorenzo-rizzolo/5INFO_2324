@@ -8,8 +8,6 @@
             <ul>
                 <li><a href="/chi_sono">Chi sono</a></li>
                 <!-- svelte-ignore a11y-invalid-attribute -->
-                <li><a href="/input">Input</a></li>
-                <!-- svelte-ignore a11y-invalid-attribute -->
                 <li><a href="#">Counter</a></li>
                 <!-- svelte-ignore a11y-invalid-attribute -->
                 <li><a href="#">About</a></li>
