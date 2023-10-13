@@ -1,2 +1,18 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<div><div>Welcome to my WebApp</div></div>
+
+<style>
+    
+    div {
+        border: 5px solid blueviolet;
+        width: 100%;
+        height: 100%;
+        display: flex;
+    }
+
+    div div {
+        justify-content: center;
+        align-items: center;
+        font-size: 150px;        
+    }
+
+</style>

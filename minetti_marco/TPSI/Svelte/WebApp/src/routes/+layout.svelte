@@ -6,13 +6,14 @@
     <section>
         <nav>
             <ul>
-                <li><a href="#">Chi sono</a></li>
-                <li><a href="#">Counter</a></li>
+                <li><a href="/chi_sono">Chi sono</a></li>
+                <li><a href="/input">Input</a></li>
+                <li><a href="/counter">Counter</a></li>
                 <li><a href="#">About</a></li>
             </ul>
         </nav>
         <article>
-            <div><div>Welcome to my WebApp</div></div>
+            <slot />
         </article>
     </section>
     <footer>
@@ -73,16 +74,4 @@
         flex: 1;
     }
 
-    div {
-        border: 5px solid blueviolet;
-        width: 100%;
-        height: 100%;
-        display: flex;
-    }
-
-    div div {
-        justify-content: center;
-        align-items: center;
-        font-size: 150px;        
-    }
 </style>
