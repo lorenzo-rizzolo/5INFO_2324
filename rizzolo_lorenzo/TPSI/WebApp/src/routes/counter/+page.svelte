@@ -16,7 +16,7 @@
 	<h2 class='{doppio<5 ? "tred" : "tgreen"}' class:sottolineato>Valore doppio: {doppio}</h2>	
 
 
-
+ 
 <Counter bind:counter={cont} bind:doppio={doppio} on:cont={gestisci_evento}/>
 
 <ul>
