@@ -1,11 +1,11 @@
 <script>
-    export let contatore = 0;
+    export let contatore1 = 0;
 
     function counter_incr() {
-        contatore += 2;
+        contatore1 += 2;
     }
     function counter_decr() {
-        contatore -= 3;
+        contatore1 -= 3;
     }
 </script>
 
@@ -27,7 +27,7 @@
             </button>
         </div>
         <div class="number">
-            {contatore}
+            {contatore1}
         </div>
         <div class="pulsante">
             <button on:click={counter_incr}>
