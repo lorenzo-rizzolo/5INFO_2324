@@ -4,14 +4,14 @@
 </svelte:head>
 
 <script>
-    export let counter2 = 0;
+    export let counter = 0;
 
     function incre_counter(){
-        counter2 += 2;
+        counter += 1;
     }
 
     function decre_counter(){
-        counter2 -= 3;
+        counter -= 1;
     }
 </script>
 
@@ -20,7 +20,7 @@
         <span class="material-symbols-outlined icon">remove</span>
     </button>
     <div class="number">
-        {counter2}
+        {counter}
     </div>
     <button class="pulsante" on:click={incre_counter}>
         <span class="material-symbols-outlined icon">add</span>
@@ -35,7 +35,6 @@
         border-radius: 30px;
         width: 300px;
         padding: 10px;
-        margin-top: 10px;
     }
 
     .pulsante{
