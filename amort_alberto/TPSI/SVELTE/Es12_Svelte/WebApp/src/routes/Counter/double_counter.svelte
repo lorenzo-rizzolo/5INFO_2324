@@ -9,12 +9,12 @@
 <script>
 	export let counter = 0; // stato di un contatore
     function counter_incr(){
-        counter += 1;
+        counter += 2;
     }
 
     function counter_decr()
     {
-        counter -= 1;
+        counter -= 3;
 
     }
     

@@ -7,14 +7,27 @@
 </svelte:head>
 
 <script>
+    import {createEventDispatcher} from 'svelte';
+
+    const dispatch = createEventDispatcher();
 	export let counter = 0; // stato di un contatore
     function counter_incr(){
-        counter += 1;
+        counter += 2;
+        emit_event('incr');
     }
 
     function counter_decr()
     {
-        counter -= 1;
+        counter -= 3;
+        emit_event('decr');
+
+    }
+
+    function emit_event(tipo)
+    {
+        dispatch('contatore',{
+            tipo: tipo,
+            valore: counter   });
 
     }
     

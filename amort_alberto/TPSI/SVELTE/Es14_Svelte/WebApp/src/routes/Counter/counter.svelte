@@ -7,7 +7,10 @@
 </svelte:head>
 
 <script>
-	export let counter = 0; // stato di un contatore
+	import {createEventDispatcher} from 'svelte';
+    const dispatch= createEventDispatcher();
+    export let counter = 0; // stato di un contatore
+
     function counter_incr(){
         counter += 1;
     }
