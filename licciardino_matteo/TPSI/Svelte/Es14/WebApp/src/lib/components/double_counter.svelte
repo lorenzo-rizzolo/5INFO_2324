@@ -4,14 +4,26 @@
 </svelte:head>
 
 <script>
+    import { createEventDispatcher } from "svelte";
+
+    const dispatch = createEventDispatcher();
     export let counter2 = 0;
 
     function incre_counter(){
         counter2 += 2;
+        emit_event("incr");
     }
 
     function decre_counter(){
         counter2 -= 3;
+        emit_event("decr");
+    }
+
+    function emit_event(tipo){
+        dispatch("contatore", {
+            tipo: tipo,
+            valore: counter2,
+        })
     }
 </script>
 
