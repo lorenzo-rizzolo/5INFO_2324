@@ -5,6 +5,7 @@
 <script>
     import { createEventDispatcher } from "svelte";
 
+    const dispatch = createEventDispatcher()
 	export let counter=0
     export let doppio=0
 
