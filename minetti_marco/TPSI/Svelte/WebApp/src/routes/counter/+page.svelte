@@ -43,7 +43,7 @@
 
 <br><br>
 
-<h2 class={contatore_double % 2 == 0 ? 'sottolineato' : ''}>Il valore del contenitore vale: {contatore_double}</h2>
+<h2 class={contatore_double % 2 ? 'sottolineato' : ''}>Il valore del contenitore vale: {contatore_double}</h2>
 
 <Contatore_double bind:counter={contatore_double}/>
 
