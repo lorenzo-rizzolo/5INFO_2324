@@ -29,12 +29,8 @@
 
 
 
+<h2 class={contatore <5 ? 'rosso': 'verde'}> il valore del contatore vale: {contatore}</h2>
 
-{#if contatore < 5}
-<h2 class="rosso"> il valore del contatore vale: {contatore}</h2>
-{:else}
-<h2 class="verde">il valore del contatore vale : {contatore}</h2>
-{/if}
 
 
 <h2 class:sottolineato>
@@ -50,6 +46,9 @@
 
 
 <Counter bind:counter={contatore}/>
+
+<h2>il valore del contatore vale : {doppiocont}</h2>
+
 <DoubleCounter bind:dp={doppiocont}/>
 
 

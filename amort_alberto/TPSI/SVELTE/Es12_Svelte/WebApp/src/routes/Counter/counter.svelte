@@ -28,6 +28,7 @@
 </div>
 <div class="number">
     {counter}
+    
 </div>
 
 <div class="pulsante">

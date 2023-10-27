@@ -13,11 +13,22 @@
 
     function counter_incr(){
         counter += 1;
+        emit_event('incr');
     }
 
     function counter_decr()
     {
         counter -= 1;
+        emit_event('decr');
+
+
+    }
+
+    function emit_event(tipo)
+    {
+        dispatch('contatore',{
+            tipo: tipo,
+            valore: dp   });
 
     }
     

@@ -1,5 +1,8 @@
 <script>
-    import WhoAmI from "../../lib/components/who_am_i.svelte";
+    import {store_counter} from '../../lib/js/store';
+    import {store_dp} from '../../lib/js/store';
 </script>
-<WhoAmI nome="ALberto" cognome ="Amort" eta=20/>
-<h1>Pagina: Chi Sono</h1>
+
+<h1>Questa è la pagina ABOUT</h1>
+<h2>Il contatore vale : {$store_counter}</h2>
+<h2>Il DoubleCounter vale : {$store_dp}</h2>

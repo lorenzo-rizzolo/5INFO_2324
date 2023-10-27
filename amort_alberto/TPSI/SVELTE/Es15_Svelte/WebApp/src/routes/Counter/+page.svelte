@@ -54,7 +54,10 @@
 
 
 <Counter bind:counter={contatore} on:contatore={gestisci_evento}/>
-<DoubleCounter bind:dp={doppiocont}/>
+
+<h2 >il valore del contatore vale : {doppiocont}</h2>
+
+<DoubleCounter bind:dp={doppiocont} on:doppiocont={gestisci_evento}/>
 
 
 <ul>

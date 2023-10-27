@@ -6,18 +6,26 @@
 	let contatore = 0; // stato di un contatore    
     let doppiocont=0;
     let numeri = [1, 7, 2, 6, 9, 10];
+    let sottolineato =true;
+    let doppio;
+
+    $: doppio = contatore *2;
     function incremente() {
         contatore++;
+        doppiocont++;
+
     }
+
+    
 </script>
 
 <h1>Page Counter !!!</h1>
+<h2>Il suo doppio vale {doppio}</h2>
 
-{#if contatore <5}
-<h2 class="rosso"> il valore del contatore vale: {contatore}</h2>
-{:else}
-<h2 class="verde">il valore del contatore vale : {conteatore}</h2>
-{/if}
+<h2 class:sottolineato>il valore del contatore vale: {contatore}</h2>
+
+<h2 class={contatore <5 ? 'rosso': 'verde'}> il valore del contatore vale: {contatore}</h2>
+
 
 
 <Counter bind:counter={contatore}/>
@@ -28,4 +36,13 @@
     {/each}
 </ul>
 
+<h2>il valore del contatore vale : {doppiocont}</h2>
+
 <DoubleCounter bind:dp={doppiocont}/>
+
+
+<style>
+    .rosso {color: red;}
+    .verde  {color: green;}
+    .sottolineato {text-decoration: underline;}
+</style>
