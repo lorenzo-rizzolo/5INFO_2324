@@ -1,0 +1,10 @@
+<main>
+    <h1>Welcome to SvelteKit</h1>
+</main>
+
+
+<style>
+    main {
+        
+    }
+</style>
