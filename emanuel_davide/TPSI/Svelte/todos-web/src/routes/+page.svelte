@@ -1,2 +1,17 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<main>
+    <TodoList/>
+</main>
+
+<script>
+    import TodoList from "../lib/components/todo_list.svelte";
+</script>
+
+
+<style>
+    main {
+        border: 3px solid red;
+        width: 60%;
+        height: 90vh;
+        margin: auto;
+    }
+</style>
