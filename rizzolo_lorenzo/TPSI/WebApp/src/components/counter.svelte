@@ -4,10 +4,12 @@
 
 <script>
     import { createEventDispatcher } from "svelte";
+    import { store_counter } from "../lib/js/store";
 
     const dispatch = createEventDispatcher()
 	export let counter=0
     export let doppio=0
+
 
     function counter_incr(){
         counter++
@@ -19,7 +21,9 @@
         emit_event("decr")
     }
 
-    $: doppio = counter * 2 
+    $: $store_counter = counter 
+
+    $: doppio = counter * 2
 
     function emit_event(tipo){
         dispatch('cont', {

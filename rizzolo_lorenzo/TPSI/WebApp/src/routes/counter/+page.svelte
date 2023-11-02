@@ -1,10 +1,6 @@
 <script>
 	import Counter from "../../components/counter.svelte"
 
-	function gestisci_evento(evento){
-		alert('${evento.detail.tipo} -- ${evento.detail.valore}')
-	}
-
 	let cont = 0
 	let doppio=0
 
@@ -17,7 +13,7 @@
 
 
  
-<Counter bind:counter={cont} bind:doppio={doppio} on:cont={gestisci_evento}/>
+<Counter bind:counter={cont} bind:doppio={doppio}/>
 
 <ul>
 	{#each numeri as num, index}
