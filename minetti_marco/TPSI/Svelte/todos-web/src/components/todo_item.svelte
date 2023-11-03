@@ -1,9 +1,16 @@
 <script>
+    import { createEventDispatcher } from "svelte";
     import Cell from "./cell.svelte";
     import Icon from "./icon.svelte";
     import Priority from "./priority.svelte";
 
     export let todo;
+    const dispatch = createEventDispatcher();
+
+    const item_change = (type) => {
+        dispatch('change', {type: type, id: todo.id});
+    }
+
     const toggle_status = () => {
         todo.done = !todo.done;
     }
@@ -18,7 +25,7 @@
 
 <Cell>
     {#if todo.done == false}
-    <Icon name="circle" handler={toggle_status}/>
+    <Icon name="circle" handler={toggle_status} color="red"/>
     {:else}
     <Icon name="task_alt" handler={toggle_status}/>    
     {/if}
@@ -37,13 +44,13 @@
     <Priority/>
 </Cell>
 
-<Cell>
-    <Icon name="delete_forever"/>
+<Cell last>
+    <Icon name="delete_forever" color="red" handler={() => item_change('delete')}/>
 </Cell>
 
 
 <style>
-    .todo-item-input-text {
+    .todo-item-input-text { 
         border: none;
         width: 90%;
         height: 30px;
