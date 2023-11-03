@@ -5,16 +5,31 @@
 
 <script>
 
+    import { createEventDispatcher } from 'svelte';
+    import { store_counter } from '../js/store'
+
+    export let counter = 0;
+    const dispatch = createEventDispatcher();
+
     function counter_incr () {
         counter++;
+        $store_counter = counter;
+        emit_event('incr');
     }
 
     function counter_decr () {
         counter--;
+        $store_counter = counter;
+        emit_event('decr');
     }
 
-    export let counter = 0;
-
+    function emit_event(tipo) {
+        dispatch('contatore', {
+            tipo: tipo,
+            valore: counter
+        }); 
+    }
+        
 </script>
 
 <div class="container">

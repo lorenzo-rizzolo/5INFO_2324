@@ -9,7 +9,7 @@
                 <li><a href="/chi_sono">Chi sono</a></li>
                 <li><a href="/input">Input</a></li>
                 <li><a href="/counter">Counter</a></li>
-                <li><a href="#">About</a></li>
+                <li><a href="/about">About</a></li>
             </ul>
         </nav>
         <article>
@@ -75,3 +75,4 @@
     }
 
 </style>
+

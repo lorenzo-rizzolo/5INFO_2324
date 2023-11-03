@@ -20,4 +20,4 @@ Io sono {nome} {cognome} ed ho {eta} anni e abito a {residenza}
 
 <br><br>
 
-<button disabled={!confermato}>Invia</button>
+<button disabled={!confermato} on:click={() => alert ('il messaggio è stato inviato')}>Invia</button>   

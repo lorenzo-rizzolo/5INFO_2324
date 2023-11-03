@@ -6,7 +6,11 @@
     let contatore_double;
     let numeri = [1, 2, 3, 4, 5];
     let sottolineato = true;
-    let doppio;
+    let doppio;            
+    
+    function gestisci_evento(evento) {
+        alert(`${evento.detail.tipo} -- ${evento.detail.valore}`);  
+    }
 
     $: doppio = contatore * 2;
 </script>
@@ -18,7 +22,6 @@
 <h2>
     Il suo doppio vale: {doppio}
 </h2>
-
 
 
 <!--     
@@ -36,11 +39,11 @@
 
 {/if} -->
 
-<Contatore bind:counter={contatore}/>
+<Contatore bind:counter={contatore} on:contatore={gestisci_evento}/>
 
 <br><br>
 
-<h2 class={contatore_double % 2 == 0 ? 'sottolineato' : ''}>Il valore del contenitore vale: {contatore_double}</h2>
+<h2 class={contatore_double % 2 ? 'sottolineato' : ''}>Il valore del contenitore vale: {contatore_double}</h2>
 
 <Contatore_double bind:counter={contatore_double}/>
 
