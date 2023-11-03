@@ -6,9 +6,10 @@
     <section>
         <nav>
             <ul>
-                <li><a href="#">Chi sono</a></li>
+                <li><a href="/chi_sono">Chi sono</a></li>
+                <li><a href="/input">Input</a></li>
                 <li><a href="/counter">Counter</a></li>
-                <li><a href="/about">About</a></li>
+                <li><a href="#">About</a></li>
             </ul>
         </nav>
 
@@ -18,7 +19,7 @@
     </section>
 
     <footer>
-        <h4>Copyright &copy; Bill gay</h4>
+        <h4>Copyright &copy; Ciro Esposito</h4>
     </footer>
 </main>
 
