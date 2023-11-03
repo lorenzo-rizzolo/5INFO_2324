@@ -7,9 +7,10 @@ rel="stylesheet"/>
 
 <script
 export let name;
+export let handler = () => {}; //handler di default
 ></script>
 
-<span class = "material-icons-outlined icon">
+<span class = "material-icons-outlined icon" on:click={handler}>
 {name}
 </span>
 

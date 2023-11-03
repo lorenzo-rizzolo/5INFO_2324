@@ -1,6 +1,21 @@
 <script>
     import Icon from "./icon.svelte";
     import TodoItem from "./todo_item.svelte";
+    
+    let todos = []; //ToDoList
+    let last_id = 0;
+    
+    const crete_todo =async () => {
+    
+    let todo = //ToDo Item
+    id: ++last_id,
+    task: '',
+    done: false,
+    priority: 3
+    };
+    console.log("CREATE:", todo);
+    //aggiorno la todo list
+    todos = [...todos, todo]; }
 </script>
 
     <h1>ToDos</h1>
@@ -10,24 +25,16 @@
         <div class="header"><Icon name="task_alt"/></div>
         <div class="header"><Icon name="list"/></div>
         <div class="header"><Icon name="schedule"/></div>
-        <div class="header"><Icon name="add_box"/></div>
-
+        <div class="header"><Icon name="add_box" handler={create_todo}/></div>
         
+                <!-- ToDo Items -->
+        
+        {#each todos as todos}
+          <TodoItem todo={todo}/>
+          {/each}
 
 
-
-        <!-- ToDo Item 1 -->
-          <TodoItem />
-
-
-    <!-- ToDo Item 2 -->
-    <TodoItem />
-
-
-    <!-- ToDo Item 3-->
-    <TodoItem />
-
-       </div>
+         </div>
     <style>
         .todo-list {
             display: grid;
