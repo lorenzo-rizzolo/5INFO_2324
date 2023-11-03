@@ -13,11 +13,13 @@
 
     function counter_incr(){
         counter++
+        $store_counter = counter
         emit_event("incr")
     }
 
     function counter_decr(){
         counter--
+        $store_counter = counter
         emit_event("decr")
     }
 

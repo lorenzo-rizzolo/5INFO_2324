@@ -1,4 +1,5 @@
 <script>
+	import Cell from './cell.svelte';
     import Icon from "../components/icon.svelte"
     import TodoItem from "../components/todo_item.svelte"
 
@@ -23,6 +24,16 @@
         console.log("create", todo)
         todos = [...todos, todo]
     }
+
+    const change_todo_item = async (e) => {
+        delete_item(e.detail.id)
+    }
+
+    const delete_item = (id) => {
+        console.log("delete", id)
+        todos = todos.filter(to => to.id!=id )
+    }
+
 </script>
 
 <h1>ToDos</h1>
@@ -36,7 +47,7 @@
     <div class="header"><Icon nome='add_box' handler={create_task} /></div>
 
     {#each todos as t}
-        <TodoItem todo={t}  />
+        <TodoItem todo={t} on:change={change_todo_item}  />
     {/each}
 
 </div>
