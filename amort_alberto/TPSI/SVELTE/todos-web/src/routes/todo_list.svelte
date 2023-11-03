@@ -5,9 +5,9 @@
     let todos = []; //ToDoList
     let last_id = 0;
     
-    const crete_todo =async () => {
+    const create_todo =async () => {
     
-    let todo = //ToDo Item
+    let todo = {//ToDo Item
     id: ++last_id,
     task: '',
     done: false,
@@ -16,9 +16,20 @@
     console.log("CREATE:", todo);
     //aggiorno la todo list
     todos = [...todos, todo]; }
-</script>
+    
+    const change_todo_item = async (e) =>
+    {
+        delete_item(e.detail.id);
+    }
 
-    <h1>ToDos</h1>
+    const delete_item =(id) =>
+    {
+        console.log("DELETE:", id);
+        todos= todos.filter(t => t.id != id);
+    }
+    </script>
+
+    <h1 class="app-title">ToDos</h1>
 
     <div class="todo-list">
         <div class="header"><Icon name="tag"/></div>
@@ -30,12 +41,18 @@
                 <!-- ToDo Items -->
         
         {#each todos as todos}
-          <TodoItem todo={todo}/>
+          <TodoItem todo={todo} on:change={change_todo_item}/>
           {/each}
 
 
          </div>
     <style>
+        .app{
+            font-family: 'Permanent Marker', cursive;
+            margin-top: 8px;
+            font-size: 68px;
+            opacity: 0.3;
+        }
         .todo-list {
             display: grid;
             grid-template-columns: 1fr 1fr 4fr 2fr 1fr;
