@@ -1,5 +1,5 @@
 <svelte:head>
-    <link href="https://fonts.googleapis.com/css2? 
+    <link href="https://fonts.googleapis.com/css2?
     family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet"/> 
 
     <link href="https://fonts.googleapis.com/css2?
@@ -7,14 +7,31 @@
 </svelte:head>
 
 <script>
-	export let counter = 0; // stato di un contatore
-    function counter_incr(){
-        counter += 1;
+    import {createEventDispatcher} from 'svelte';
+    import {store_dp} from '../../lib/js/store.js';
+
+    const dispatch = createEventDispatcher();
+	export let dp = 0; // stato di un contatore
+    function dp_incr(){
+        dp += 2;
+        $store_dp= dp;
+        emit_event('incr');
     }
 
-    function counter_decr()
+    function dp_decr()
     {
-        counter -= 1;
+        dp -= 3;
+        $store_dp= dp;
+
+        emit_event('decr');
+
+    }
+
+    function emit_event(tipo)
+    {
+        dispatch('doppiocont',{
+            tipo: tipo,
+            valore: dp   });
 
     }
     
@@ -22,16 +39,16 @@
 
 <div class="container">
     <div class="pulsante">
-    <button on:click={counter_decr}>
+    <button on:click={dp_decr}>
         <span class="material-symbols-outlined icon">remove</span>
     </button>
 </div>
 <div class="number">
-    {counter}
+    {dp}
 </div>
 
 <div class="pulsante">
-    <button on:click={counter_incr}>
+    <button on:click={dp_incr}>
     <span class="material-symbols-outlined icon">add</span>
 </button>
 </div>

@@ -1,5 +1,5 @@
 <svelte:head>
-    <link href="https://fonts.googleapis.com/css2? 
+    <link href="https://fonts.googleapis.com/css2?
     family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet"/> 
 
     <link href="https://fonts.googleapis.com/css2?
@@ -7,14 +7,31 @@
 </svelte:head>
 
 <script>
-	export let counter = 0; // stato di un contatore
+	import {createEventDispatcher} from 'svelte';
+    import {store_counter} from '../../lib/js/store.js';
+    const dispatch= createEventDispatcher();
+    export let counter = 0; // stato di un contatore
+
     function counter_incr(){
         counter += 1;
+        $store_counter= counter;
+        emit_event('incr');
     }
 
     function counter_decr()
     {
         counter -= 1;
+        $store_counter= counter;
+        emit_event('decr');
+
+
+    }
+
+    function emit_event(tipo)
+    {
+        dispatch('contatore',{
+            tipo: tipo,
+            valore: dp   });
 
     }
     
