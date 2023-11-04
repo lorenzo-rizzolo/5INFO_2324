@@ -5,7 +5,8 @@
     let todos = []; //ToDoList
     let last_id = 0;
     
-    const create_todo =async () => {
+
+    const create_todo = async () => {
     
     let todo = {//ToDo Item
     id: ++last_id,
@@ -15,9 +16,10 @@
     };
     console.log("CREATE:", todo);
     //aggiorno la todo list
-    todos = [...todos, todo]; }
-    
-    const change_todo_item = async (e) =>
+    todos = [...todos, todo]; 
+}
+
+const change_todo_item = async (e) =>
     {
         delete_item(e.detail.id);
     }
@@ -27,39 +29,46 @@
         console.log("DELETE:", id);
         todos= todos.filter(t => t.id != id);
     }
+
     </script>
 
-    <h1 class="app-title">ToDos</h1>
+    <h1 class="app_title">ToDos</h1>
 
     <div class="todo-list">
         <div class="header"><Icon name="tag"/></div>
         <div class="header"><Icon name="task_alt"/></div>
         <div class="header"><Icon name="list"/></div>
         <div class="header"><Icon name="schedule"/></div>
-        <div class="header"><Icon name="add_box" handler={create_todo}/></div>
+        <div class="header header-last"><Icon name="add_box" handler={create_todo}/></div>
         
                 <!-- ToDo Items -->
-        
-        {#each todos as todos}
-          <TodoItem todo={todo} on:change={change_todo_item}/>
-          {/each}
 
+                {#each todos as todo}
+        <TodoItem todo={todo} on:change={change_todo_item}/>
+    {/each}
 
          </div>
     <style>
-        .app{
-            font-family: 'Permanent Marker', cursive;
-            margin-top: 8px;
-            font-size: 68px;
-            opacity: 0.3;
-        }
-        .todo-list {
+       
+       
+       .todo-list{
             display: grid;
             grid-template-columns: 1fr 1fr 4fr 2fr 1fr;
-            border: 3px solid blue;
+            border: 0px solid blue;
             width: 95%;
-            height: 80%;
-            margin:auto;
+            margin: auto;
+        }
+
+        .header{
+            border-bottom: 1px solid #E7ECEE;
+            border-right: 1px solid #E7ECEE;
+            text-align: center;
+            padding-bottom: 20px;
 
         }
-   </style>
+        .header-last{
+            border-right: none;
+        }
+        
+       
+       </style>

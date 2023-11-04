@@ -1,13 +1,14 @@
 <script>
-    export let last= false;
-    </script>
+    export let last =false;
+</script>
 
-<div class="cell { last ? 'cell-last' : ''}">
+<div class="cell {last ? 'cell-last' : ''}">
     <slot />
 </div>
 
+
 <style>
-    .cell{
+     .cell{
     border-bottom: 1px solid #E7ECEE;
     border-right: 1px solid #E7ECEE;
     text-align: center;
