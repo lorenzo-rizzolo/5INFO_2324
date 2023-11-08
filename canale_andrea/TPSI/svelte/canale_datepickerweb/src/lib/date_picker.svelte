@@ -1,12 +1,11 @@
 <script>
+    import ArrayLengthPicker from "$lib/picker_components/ArrayLengthPicker.svelte";
+
     export let day = "GG";
     export let month = "MM";
     export let year = "AAAA";
 
     import {createEventDispatcher} from "svelte";
-    import DayPicker from './picker_components/daypicker.svelte';
-    import MonthPicker from './picker_components/monthpicker.svelte';
-    import YearPicker from './picker_components/yearpicker.svelte';
 
     const dispatch = createEventDispatcher();
 
@@ -20,11 +19,11 @@
 
 </script>
 
-<DayPicker bind:day></DayPicker>
+<ArrayLengthPicker bind:item={day}></ArrayLengthPicker>
 
-<MonthPicker bind:month></MonthPicker>
+<ArrayLengthPicker bind:item={month}></ArrayLengthPicker>
 
-<YearPicker bind:year></YearPicker>
+<ArrayLengthPicker bind:item={year}></ArrayLengthPicker>
 
 <button on:click={btn_click}>
     SELECT
