@@ -14,7 +14,7 @@
         "Dicembre",
     ];
     let Month = "Gennaio";
-    let selectedMese = new Date();
+    let selectedMese = "MM";
 
     function updateMonth() {
         selectedMese = months[Month - 1];
@@ -24,8 +24,8 @@
 </script>
 
 <div>
-    <input class="month" value={"MM"} readonly />
-    <select id="mese1" bind:value={Month} on:change={updateMonth}>
+    <input class="month" value={selectedMese} readonly /><br />
+    <select size="6" id="mese1" bind:value={Month} on:change={updateMonth}>
         {#each months as month, i}
             <option value={i + 1}>{month}</option>
         {/each}
@@ -34,15 +34,16 @@
 
 <style>
     .month {
-        width: 80px;
+        width: 100px;
         padding: 10px;
         text-align: center;
     }
     #mese1 {
-        width: 100px;
+        width: 120px;
     }
 
     div {
+        padding: 10px;
         display: flex;
         flex-direction: column;
         align-items: center;

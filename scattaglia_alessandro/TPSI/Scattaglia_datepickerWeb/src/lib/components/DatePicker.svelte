@@ -23,17 +23,20 @@
         L'utente ha selezionato {giorno1} - {mese1} - {anno1}
     </h1>
 {:else}
-    <h1>L'utente ha selezionato 0 - 0 - 0</h1>
+    <h1>L'utente ha selezionato GG - MM - AAAA</h1>
 {/if}
 
 <div class="container">
     <Giorno />
     <Mese />
     <Anno />
-    <button on:click={handleSelezione}>SELEZIONA</button>
+    <button class="button1" on:click={handleSelezione}>SELEZIONA</button>
 </div>
 
 <style>
+    * {
+        zoom: 130%;
+    }
     h1 {
         text-align: center;
         padding-top: 80px;
@@ -44,5 +47,10 @@
         display: flex;
         flex-direction: row;
         justify-content: space-around;
+    }
+    .button1 {
+        margin-top: 8px;
+        width: auto;
+        height: 30px;
     }
 </style>
