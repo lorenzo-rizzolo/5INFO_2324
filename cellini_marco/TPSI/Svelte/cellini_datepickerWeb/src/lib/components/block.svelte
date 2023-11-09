@@ -2,9 +2,9 @@
     import { gg_selected } from '../js/store';
     import { mm_selected } from '../js/store';
     import { aaaa_selected } from '../js/store';
-
-    export let list;
-    export let selected;
+    
+    export let list = [""];
+    export let selected = "";
 
     function update_value() {
         if (list.length == 31)

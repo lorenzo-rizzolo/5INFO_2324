@@ -5,7 +5,7 @@
     import { gg_selected } from '../js/store';
     import { mm_selected } from '../js/store';
     import { aaaa_selected } from '../js/store';
-    let gg, mm, aaaa;
+    let gg = "GG", mm = "MM", aaaa = "AAAA";
 
     let days = Array.from(Array(31 + 1).keys()).slice(1);
     let years = Array.from(Array(2023 + 1).keys()).slice(1900);
@@ -25,7 +25,7 @@
     ];
 
     function update_date() {
-        gg = $gg_selected;
+        gg = $gg_selected;  
         mm = $mm_selected;
         aaaa = $aaaa_selected;
     }
