@@ -32,7 +32,7 @@ public class cellini_tcp_server {
                 OutputStream output = client_connection.getOutputStream();
                 PrintWriter writer = new PrintWriter(output, true);
                 writer.println(messaggio);
-                System.out.format("\tJava TCP server ha risposto correttamente\n\n");
+                System.out.format("Java TCP server ha risposto correttamente %s\n\n", messaggio);
 
                 /* chiudo la connessione con il client */
                 client_connection.close();
