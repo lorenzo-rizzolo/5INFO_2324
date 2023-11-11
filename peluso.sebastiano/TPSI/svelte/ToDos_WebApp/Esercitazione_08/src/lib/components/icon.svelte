@@ -7,10 +7,9 @@
 <script>
     export let name;
 
-    //export let color = "green";
-
     export let handler = () => {};
 </script>
+
 
 <span class="material-icons-outlined icon" on:click={handler}>
     {name}

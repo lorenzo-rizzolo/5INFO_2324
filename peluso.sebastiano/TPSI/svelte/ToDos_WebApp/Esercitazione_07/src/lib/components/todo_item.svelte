@@ -2,27 +2,20 @@
     import Cell from './cell.svelte';
     import Icon from './icon.svelte';
     import Priority from './priority.svelte';
-
-    export let todo;
-
-
 </script>
 
+
 <Cell>
-    {todo.id}
+    id
 </Cell>
 <Cell>
-    {#if todo.done == false}
-        <Icon name="circle" />
-    {:else}
-        <Icon name="task_alt" />
-    {/if}
+    <Icon name="circle" />
 </Cell>
 <Cell>
-    {todo.task}
+    task
 </Cell>
 <Cell>
-    <Priority />
+    <Priority/>
 </Cell>
 
 <Cell>

@@ -4,9 +4,6 @@
 
 
 <main>
-    <h1>To dos</h1>
-    
-
     <Todolist/>
 </main>
 

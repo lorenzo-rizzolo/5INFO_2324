@@ -1,18 +1,13 @@
-
+<script>
+    export let name;
+</script>
 
 <svelte:head>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
 </svelte:head>
 
-<script>
-    export let name;
 
-    //export let color = "green";
-
-    export let handler = () => {};
-</script>
-
-<span class="material-icons-outlined icon" on:click={handler}>
+<span class="material-icons-outlined icon">
     {name}
 </span>
 

@@ -4,25 +4,24 @@
     import Priority from './priority.svelte';
 
     export let todo;
-
-
 </script>
+
 
 <Cell>
     {todo.id}
 </Cell>
 <Cell>
     {#if todo.done == false}
-        <Icon name="circle" />
-    {:else}
-        <Icon name="task_alt" />
-    {/if}
+    <Icon name="circle" />
+{:else}
+    <Icon name="task_alt" />
+{/if}
 </Cell>
 <Cell>
-    task
+    {todo.task}
 </Cell>
 <Cell>
-    priorità
+    <Priority/>
 </Cell>
 
 <Cell>

@@ -1,22 +1,12 @@
 
-<div class="cell">
-    <slot />
+<div>
+    CELLA
 </div>
 
 <style>
     div{
         border: 1px solid grey;
         margin: 0px 5px 30px 5px;
-        height: 50px;
-    }
-
-    .cell{
-        border-bottom: 1px solid #E7ECEE;
-        border-right: 1px solid #E7ECEE;
-        text-align: center;
-        padding-top: 10px;
-        color: #525252;
-        line-height: 32px;
-        font-size: 18px;
+        
     }
 </style>
