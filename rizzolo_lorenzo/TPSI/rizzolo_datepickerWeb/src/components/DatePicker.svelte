@@ -50,8 +50,8 @@
     <button on:click={new_event("selectDate")}>Select</button>
 
     <select id='giorno' bind:value={giorno} size="10">
-        {#each Array(32).keys() as key}
-            <option value={key}>{key}</option>
+        {#each Array(31).keys() as key}
+            <option value={key+1}>{key+1}</option>
         {/each}
     </select>
 
