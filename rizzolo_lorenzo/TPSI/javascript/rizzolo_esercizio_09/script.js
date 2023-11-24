@@ -13,3 +13,5 @@ user=="admin" && (password = prompt("Password"))
 password || alert("Canceled")
 password=="Agnell1no" || alert("Wrong password")
 password=="Agnell1no" && alert("Welcome")
+
+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
