@@ -14,9 +14,3 @@ password || alert("Canceled")
 password=="Agnell1no" || alert("Wrong password")
 password=="Agnell1no" && alert("Welcome")
 
-
-<?php
-
-for($i=0 ; $i<1000 ; $i
-
-?>
